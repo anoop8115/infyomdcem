@@ -139,6 +139,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+        InfyOm\GeneratorBuilder\GeneratorBuilderServiceProvider::class, 
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -165,6 +166,10 @@ return [
         /*
          * Package Service Providers...
          */
+      /** Service Providers **/  Yajra\Datatables\DatatablesServiceProvider::class, 
+Yajra\Datatables\ButtonsServiceProvider::class, 
+Yajra\Datatables\HtmlServiceProvider::class, 
+/** Facade **/ 
 
         /*
          * Application Service Providers...
@@ -174,7 +179,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+   
     ],
 
     /*
@@ -210,6 +215,7 @@ return [
         'Hash' => Illuminate\Support\Facades\Hash::class,
         'Http' => Illuminate\Support\Facades\Http::class,
         'Js' => Illuminate\Support\Js::class,
+     
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,
@@ -232,6 +238,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Flash' => Laracasts\Flash\Flash::class,
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,  
     ],
 
 ];

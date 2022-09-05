@@ -36,8 +36,22 @@ Route::post(
     'generator_builder/generate-from-file',
     '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@generateFromFile'
 )->name('io_generator_builder_generate_from_file');
+Route::group(['middleware' => ['web']], function () {
 
-Route::resource('meterdatas', App\Http\Controllers\meterdataController::class);
-
+    Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+        Route::resource('meterDatas', App\Http\Controllers\MeterDataController::class);
+        Route::get('meterdatas/grid', [App\Http\Controllers\meterDataController::class, 'grid'])->name('meterDatas.grid');
 
 Route::resource('meterDatas', App\Http\Controllers\MeterDataController::class);
+Route::get('ro-data/view/{id}', [App\Http\Controllers\MeterDataController::class, 'view_info'])->name('ro-data.view');
+
+Route::get('/logs', [App\Http\Controllers\MeterDataController::class, 'logs_export'])->name('data.logs');
+Route::get('/devicelogs/{id}', [App\Http\Controllers\MeterDataController::class, 'devicelogs_export'])->name('data.devicelogs');
+
+
+Route::resource('settings', App\Http\Controllers\SettingController::class);
+
+        // Route::get('/', ['uses'=>'Admin@index']);
+    });
+});
+

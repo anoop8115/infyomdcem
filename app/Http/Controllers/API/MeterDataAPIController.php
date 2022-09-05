@@ -4,12 +4,15 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Requests\API\CreateMeterDataAPIRequest;
 use App\Http\Requests\API\UpdateMeterDataAPIRequest;
+use APP\Http\Requests\API\CreateRoDataRequest;
 use App\Models\MeterData;
 use App\Repositories\MeterDataRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
-
+use DB;
+// carbon
+use Carbon\Carbon;
 /**
  * Class MeterDataController
  * @package App\Http\Controllers\API
@@ -42,6 +45,61 @@ class MeterDataAPIController extends AppBaseController
 
         return $this->sendResponse($meterDatas->toArray(), 'Meter Datas retrieved successfully');
     }
+
+
+
+     public function api_store(CreateMeterDataAPIRequest $request){
+        $input = $request->all();
+              
+              if(@$input['device_id'])
+              {
+                  $device_id = $input['device_id'];
+                  $check = DB::table('meterdatas')->where('device_id',$device_id)->first();
+                   $info = DB::table('deviceinfo')->where('device_id',$device_id)->get();
+                   if(@$info[0])
+                   {
+                       $input['sap_id']= $info[0]->sap_id;
+                   }
+                   if($check != null)
+                  {
+                                 $pre_logs = DB::table('ro_data_logs')->where('device_id',$check->device_id)->orderby('id','DESC')->get()[0];
+                       
+                         if($pre_logs != null)
+                        {  $start  = new Carbon($check->updated_at);
+                         $end    = new Carbon($pre_logs->created_at);
+                        $differ =  $start->diff($end)->format('%H:%I:%S');
+                        
+                     if($differ >= "01:00:00")
+                     {
+                      
+                         DB::table('ro_data_logs')->insert($input);
+                     }
+                      }
+                      else{
+                           DB::table('ro_data_logs')->insert($input);
+                      }
+                      $input['updated_at'] =Carbon::now()->toDateTimeString();
+                      DB::table('meterdatas')->where('device_id',$device_id)->update($input);
+                      
+                      return response()->json(['success'=>true,'message'=>'Ro Data updated successfully.']);
+                    
+                  }
+                  else
+                  {
+                        $input['updated_at'] =Carbon::now()->toDateTimeString();
+                       $roData = $this->roDataRepository->create($input);
+                        DB::table('meterdatas')->insert($input);
+                        return response()->json(['success'=>true,'message'=>'Ro Data saved successfully.']); 
+                  }
+                  
+                  
+              }
+              else
+             return response()->json(['success'=>false,'message'=>'Device id is required.']);  
+      
+    }
+
+
 
     /**
      * Store a newly created MeterData in storage.

@@ -65,23 +65,30 @@ class MeterDataDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'device_id',
-            'cf1',
-            'cf2',
-            'cf3',
-            'cf4',
-            'cf5',
-            'cf6',
-            'cf7',
-            'cf8',
-            'cf9',
-            'cf10',
-            'cf11',
-            'cf12',
-            'cf13',
-            'cf14',
-            'cf15',
-            'cf16'
+            // search sort false
+
+            'device_id'=>['title'=>'Device ID','orderable' => true, 'searchable' => true, ],
+            'sap_id' => ['title'=>'SAP ID','orderable' => true, 'searchable' => true,'width'=>'150px', ],
+            'updated_at'=>['title'=>'Updated At','orderable' => true, 'searchable' => false, ],
+            'cf1'=>['title'=>'VOLTAGE1','orderable' => false, 'searchable' => false, ],
+            'cf2'=>['title'=>'CURRENT1','orderable' => false, 'searchable' => false, ],
+            'cf3'=>['title'=>'KW1','orderable' => false, 'searchable' => false, ],
+            'cf4'=>['title'=>'KWH1','orderable' => false, 'searchable' => false, ],   
+            'cf5'=>['title'=>'VOLTAGE2','orderable' => false, 'searchable' => false, ],
+            'cf6'=>['title'=>'CURRENT2','orderable' => false, 'searchable' => false, ],
+            'cf7'=>['title'=>'KW2','orderable' => false, 'searchable' => false, ],
+            'cf8'=>['title'=>'KWH2','orderable' => false, 'searchable' => false, ],
+            'cf9'=>['title'=>'VOLTAGE3','orderable' => false, 'searchable' => false, ],
+            'cf10'=>['title'=>'CURRENT3','orderable' => false, 'searchable' => false, ],
+            'cf11'=>['title'=>'KW3','orderable' => false, 'searchable' => false, ],
+            'cf12'=>['title'=>'KWH3','orderable' => false, 'searchable' => false, ],
+            'cf13'=>['title'=>'VOLTAGE4','orderable' => false, 'searchable' => false, ],
+            'cf14'=>['title'=>'CURRENT4','orderable' => false, 'searchable' => false, ],
+            'cf15'=>['title'=>'KW4','orderable' => false, 'searchable' => false, ],
+            'cf16'=>['title'=>'KWH4','orderable' => false, 'searchable' => false, ],
+          
+
+
         ];
     }
 

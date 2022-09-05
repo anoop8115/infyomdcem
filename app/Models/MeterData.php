@@ -35,7 +35,7 @@ class MeterData extends Model
 
     use HasFactory;
 
-    public $table = 'meter_datas';
+    public $table = 'ro_data';
     
 
     protected $dates = ['deleted_at'];
